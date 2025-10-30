@@ -126,6 +126,31 @@ footer p {
     .category-btn .icon {
         font-size: 2.5rem;
     }
+
+    .game-area {
+        padding: 1rem;
+    }
+    
+    .word-display {
+        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+    }
+    
+    .letter {
+        width: 25px;
+        margin: 0 3px;
+    }
+    
+    .letter-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .pendu-svg {
+        width: 180px;
+        height: 180px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -136,4 +161,184 @@ footer p {
     .welcome-message h2 {
         font-size: 1.5rem;
     }
+
+    .word-display {
+        font-size: 1.2rem;
+        letter-spacing: 0.2rem;
+    }
+    
+    .letter {
+        width: 20px;
+    }
+    
+    .letter-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .keyboard-container {
+        gap: 0.3rem;
+    }
+}
+
+.game-area {
+    text-align: center;
+    padding: 2rem;
+}
+
+.game-area.hidden {
+    display: none;
+}
+
+.pendu-drawing {
+    margin: 2rem 0;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pendu-svg {
+    width: 200px;
+    height: 200px;
+}
+
+.pendu-line {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.pendu-part {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: none;
+    opacity: 0;
+}
+
+.pendu-part.visible {
+    opacity: 1;
+}
+
+.word-display {
+    margin: 2rem 0;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.5rem;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.word-space {
+    display: inline-block;
+    width: 40px;
+}
+
+.used-letters {
+    margin: 1.5rem 0;
+    color: #a0a0a0;
+}
+
+.used-letters span {
+    color: white;
+    font-weight: bold;
+}
+
+.keyboard {
+    margin: 2rem 0;
+}
+
+.keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.letter-btn {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #0f3460;
+    border-radius: 8px;
+    background: #16213e;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.letter-btn:hover:not(:disabled) {
+    background: #0f3460;
+    transform: scale(1.05);
+}
+
+.letter-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.letter-btn.correct {
+    background: #2ecc71;
+    border-color: #27ae60;
+}
+
+.letter-btn.incorrect {
+    background: #e74c3c;
+    border-color: #c0392b;
+}
+
+.message {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.message.win {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.message.lose {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.replay-btn {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.replay-btn:hover {
+    background: #ff6b81;
+    transform: translateY(-2px);
+}
+
+.replay-btn.hidden {
+    display: none;
 }
