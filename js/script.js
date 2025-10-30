@@ -2,19 +2,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Base de données des mots pour chaque catégorie
     const motsParCategorie = {
         youtube: [
-            "YOUTUBER"
+            "YOUTUBER", "ABONNES", "VLOG", "INFLUENCEUR",
+            "ALGORITHME", "MONETISATION", "CONTENU",
+            "REACTION", "TUTORIEL", "UNBOXING", "COMMUNAUTE",
+            "LIKE", "COMMENTAIRE", "PARTAGE", "ABONNEMENT",
+            "CHAINE", "VIDEO", "RECOMMANDATION", "TENDANCE",
+            "POPULAIRE", "GAMING", "REPLAY", "SHORTS",
         ],
         sio: [
-            "SLAM"
+            "HTML", "CSS", "JAVASCRIPT", "PYTHON", "PHP", "SQL", "DART",
+            "VARIABLE", "FONCTION", "ALGORITHME", "BOUCLE", "CONDITION",
+            "TABLEAU", "OBJET", "CLASSE", "HERITAGE", "POLYMORPHISME", "INTERFACE",
+            "REQUETE", "JOINTURE", "TRANSACTION",
+            "GIT", "GITHUB", "API", "JSON", "FRAMEWORK",
+            "DEVELOPPEMENT", "PROGRAMMATION", "CODE", "SCRIPT", "APPLICATION"
         ],
         jeux: [
-            "MINECRAFT"
+            "MINECRAFT", "FORTNITE BATTLE ROYALE", "ZELDA", "SUPER MARIO BROS",
+            "POKEMON", "CALL OF DUTY", "ASSASSINS CREED", "OVERWATCH",
+            "LEAGUE OF LEGENDS", "VALORANT", "THE LAST OF US", "GOD OF WAR",
+            "RED DEAD REDEMPTION", "GHOST OF TSUSHIMA", "ELDEN RING", "DARK SOULS", "SEKIRO",
+            "SKYRIM", "THE WITCHER", "FINAL FANTASY", "DRAGON QUEST", "PERSONA",
+            "FALLOUT", "DIABLO", "BORDERLANDS",
+            "AMONG US", "FALL GUYS", "HOLLOW KNIGHT", "CELESTE",
+            "UNDERTALE", "HADES", "DEAD CELLS", "TETRIS", "PACMAN", "SONIC"
         ],
         films: [
-            "AVATAR"
+            "AVATAR", "TITANIC", "STAR WARS", "AVENGERS", "HARRY POTTER",
+            "SEIGNEUR DES ANNEAUX", "PIRATES DES CARAIBES", "JURASSIC PARK", "INCEPTION",
+            "FORREST GUMP", "BLACK PANTHER", "JOKER",
+            "INTOUCHABLE", "AstÃ©rix", "OSS 117", "LES VISITEURS",
+            "LE ROI LION", "TOY STORY", "LA REINE DES NEIGES", "SHREK",
+            "NEMO", "LES INDESTRUCTIBLES", "RATATOUILLE"
         ],
         plats: [
-            "RECETTE"
+            "BOEUF BOURGUIGNON", "COQ AU VIN", "RATATOUILLE", "QUICHE LORRAINE",
+            "GRATIN DAUPHINOIS", "BOUILLABAISSE", "TARTE TATIN", "CHARCUTERIE",
+            "PIZZA", "SPAGHETTI BOLOGNAISE", "SPAGHETTI CARBONARA", "LASAGNES", "TIRAMISU", "PANNA COTTA",
+            "SUSHI", "NOUILLES", "POULET CURRY",
+            "ROULEAUX DE PRINTEMPS", "RAMEN", "GYOZA",
+            "TACOS", "BURRITO", "PAELLA", "FAJITAS",
+            "FALAFEL", "KEBAB", "CHILI CON CARNE",
+            "CREME BRULEE", "PROFITEROLES", "FONDANT AU CHOCOLAT", "ILE FLOTTANTE", "MILLE FEUILLE",
+            "MACARON", "ECLAIR", "PARIS BREST", "FRAISIER", "OPERA", "TROPEZIENNE", "CREPES", "GAUFRES", "PANCAKES"
         ]
     };
 
