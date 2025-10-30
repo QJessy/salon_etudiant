@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         films: [
             "AVATAR"
         ],
-        cuisine: [
+        plats: [
             "RECETTE"
         ]
     };
