@@ -105,89 +105,9 @@ footer p {
     font-size: 1rem;
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-    }
-    
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
-    .category-btn {
-        padding: 1.5rem 0.5rem;
-    }
-    
-    .category-btn .icon {
-        font-size: 2.5rem;
-    }
-
-    .game-area {
-        padding: 1rem;
-    }
-    
-    .word-display {
-        font-size: 1.5rem;
-        letter-spacing: 0.3rem;
-    }
-    
-    .letter {
-        width: 25px;
-        margin: 0 3px;
-    }
-    
-    .letter-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-    
-    .pendu-svg {
-        width: 180px;
-        height: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .categories-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .welcome-message h2 {
-        font-size: 1.5rem;
-    }
-
-    .word-display {
-        font-size: 1.2rem;
-        letter-spacing: 0.2rem;
-    }
-    
-    .letter {
-        width: 20px;
-    }
-    
-    .letter-btn {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .keyboard-container {
-        gap: 0.3rem;
-    }
-}
-
 .game-area {
     text-align: center;
     padding: 2rem;
-}
-
-.game-area.hidden {
-    display: none;
 }
 
 .pendu-drawing {
@@ -339,6 +259,6 @@ footer p {
     transform: translateY(-2px);
 }
 
-.replay-btn.hidden {
+.hidden {
     display: none;
 }
