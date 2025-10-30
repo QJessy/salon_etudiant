@@ -262,3 +262,131 @@ footer p {
 .hidden {
     display: none;
 }
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .category-btn {
+        padding: 1.5rem 0.5rem;
+        min-height: 120px;
+    }
+    
+    .category-btn .icon {
+        font-size: 2.5rem;
+    }
+    
+    .category-btn .category-name {
+        font-size: 1.1rem;
+    }
+    
+    /* Zone de jeu mobile */
+    .game-area {
+        padding: 1rem;
+    }
+    
+    .pendu-svg {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .word-display {
+        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+        margin: 1.5rem 0;
+    }
+    
+    .letter {
+        width: 22px;
+        margin: 0 2px;
+    }
+    
+    .word-space {
+        width: 25px;
+    }
+    
+    /* Clavier mobile optimisé */
+    .keyboard-container {
+        gap: 0.4rem;
+        max-width: 100%;
+    }
+    
+    .letter-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+    
+    /* Agrandir légèrement les boutons pour le tactile */
+    @media (max-width: 480px) {
+        .letter-btn {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .word-display {
+            font-size: 1.3rem;
+            letter-spacing: 0.2rem;
+        }
+        
+        .letter {
+            width: 18px;
+        }
+    }
+    
+    @media (max-width: 360px) {
+        .keyboard-container {
+            gap: 0.3rem;
+        }
+        
+        .letter-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px;
+    }
+}
+
+.letter-btn, .category-btn, .replay-btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
