@@ -3,15 +3,53 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Modèle JS</title>
+    <title>Pendu Multi-Thèmes</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    
-    
+    <div class="container">
+        <header>
+            <h1>Pendu Multi-Thèmes</h1>
+            <p class="subtitle">Choisis ton univers et joue !</p>
+        </header>
 
-    <script src="js/script.js"></script>
+        <div class="game-container">
+            <!-- Page d'accueil du Pendu avec choix de la catégorie de jeu -->
+            <div id="home-screen" class="home-screen">
+                <div class="welcome-message">
+                    <h2>Choisis ta catégorie :</h2>
+                    <div class="categories-grid">
+                        <button class="category-btn" data-category="youtube">
+                            <span class="icon">📹</span>
+                            <span class="category-name">YouTube</span>
+                        </button>
+                        <button class="category-btn" data-category="sio">
+                            <span class="icon">💻</span>
+                            <span class="category-name">BTS SIO</span>
+                        </button>
+                        <button class="category-btn" data-category="jeux">
+                            <span class="icon">🎮</span>
+                            <span class="category-name">Jeux Vidéo</span>
+                        </button>
+                        <button class="category-btn" data-category="films">
+                            <span class="icon">🎬</span>
+                            <span class="category-name">Films & Séries</span>
+                        </button>
+                        <button class="category-btn" data-category="cuisine">
+                            <span class="icon">🍳</span>
+                            <span class="category-name">Cuisine</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>Venez découvrir le BTS SIO l'année prochaine !</p>
+            </footer>
+        </div>
+
+        <script src="js/script.js"></script>
 
 </body>
 
