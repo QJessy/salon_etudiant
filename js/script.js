@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         musique: [
             "TAYLOR SWIFT", "BEYONCE", "ED SHEERAN", "ARIANA GRANDE",
-            "THE WEEKND", "ADELE", "BRUNO MARS", "LADY GAGA", "HARRY STYLES",
+            "THE WEEKEND", "ADELE", "BRUNO MARS", "LADY GAGA", "HARRY STYLES",
             "BILLIE EILISH", "COLDPLAY", "IMAGINE DRAGONS", "DUA LIPA", "OLIVIA RODRIGO",
             "EMINEM", "KENDRIK LAMAR", "NICKI MINAJ", "CARDI B", "TRAVIS SCOTT",
             "NINHO", "TIAKOLA", "ORELSAN", "THEODORA", "DAFT PUNK",
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "RIHANNA", "ALICIA KEYS", "SAM SMITH", "SABRINA CARPENTER",
             "DAVID GUETTA", "CALVIN HARRIS", "MARTIN GARRIX", "AVICII",
             "DADJU", "SELENA GOMEZ", "PHARRELLS WILLIAM", "GIMS",
-            "THE BEATLES", "QUEEN", "LED ZEPPELIN", "ACDC", "ROLLING STONES", "NIRVANA",            
+            "BEATLES", "QUEEN", "LED ZEPPELIN", "ACDC", "ROLLING STONES", "NIRVANA",            
         ]
     };
 
