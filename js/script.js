@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "SQUEEZIE", "AMIXEM", "MCFLY ET CARLITO", "JOUEUR DU GRENIER", "LE RIRE JAUNE",
             "MICHOU", "INOXTAG", "VALOUZZ", "PIDI", "LEBOUSEUH", "MASTU",
             "BOB LENNON", "LENA SITUATIONS", "ENJOY PHEONIX", "NATOO", "SEB", "JOYCA",
-            "MISTER V", "SIPHANO", "WANKIL STUDIO", "DJILSI", "TIBO IN SHAPE", 
+            "MISTER V", "SIPHANO", "WANKIL STUDIO", "DJILSI", "TIBO IN SHAPE",
             "ZERATOR", "MICHALOW", "GOTAGA", "MISTER MV", "BAGHERA", "MAGHLA", "ANTOINE DANIEL",
             "FLAMBY", "DOMINGO", "ETOILES", "KAATSUP", "BYILHAN", "ANYME",
         ],
@@ -67,13 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
             "TAYLOR SWIFT", "BEYONCE", "ED SHEERAN", "ARIANA GRANDE",
             "THE WEEKEND", "ADELE", "BRUNO MARS", "LADY GAGA", "HARRY STYLES",
             "BILLIE EILISH", "COLDPLAY", "IMAGINE DRAGONS", "DUA LIPA", "OLIVIA RODRIGO",
-            "EMINEM", "KENDRIK LAMAR", "NICKI MINAJ", "CARDI B", "TRAVIS SCOTT",
+            "EMINEM", "KENDRICK LAMAR", "NICKI MINAJ", "CARDI B", "TRAVIS SCOTT",
             "NINHO", "TIAKOLA", "ORELSAN", "THEODORA", "DAFT PUNK",
             "STROMAE", "ANGÈLE", "MIKA", "GAZO", "JULIEN DORE", "CLARA LUCIANI", "JOHNNY HALLYDAY",
             "RIHANNA", "ALICIA KEYS", "SAM SMITH", "SABRINA CARPENTER",
             "DAVID GUETTA", "CALVIN HARRIS", "MARTIN GARRIX", "AVICII",
             "DADJU", "SELENA GOMEZ", "PHARRELLS WILLIAM", "GIMS",
-            "BEATLES", "QUEEN", "LED ZEPPELIN", "ACDC", "ROLLING STONES", "NIRVANA",            
+            "BEATLES", "QUEEN", "LED ZEPPELIN", "ACDC", "ROLLING STONES", "NIRVANA",
         ]
     };
 
@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const keyboardContainer = document.getElementById('keyboard-container');
     const messageDiv = document.getElementById('message');
     const replayBtn = document.getElementById('replay-btn');
+    const trouverMotBtn = document.getElementById('trouver-mot-btn');
 
     // Initialisation du jeu
     const initJeu = () => {
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const demarrerJeu = (categorie) => {
         homeScreen.classList.add('hidden');
         gameArea.classList.remove('hidden');
+        trouverMotBtn.disabled = false;
 
         const mots = motsParCategorie[categorie];
         motActuel = mots[Math.floor(Math.random() * mots.length)];
@@ -249,12 +251,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const proposerMotComplet = () => {
+        const motPropose = prompt("💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici : \n\nAttention : Une erreur est le jeu se termine !");
+
+        if (motPropose === null) {
+            return;
+        }
+
+        if (motPropose && motPropose.toUpperCase().replace(/\s+/g, ' ') === motActuel) {
+            // Victoire instantanée
+            lettresTrouvees = motActuel.split('');
+            mettreAJourAffichage();
+            messageDiv.textContent = 'Bravo ! Vous avez gagné !';
+            messageDiv.className = 'message win';
+            desactiverClavier();
+            replayBtn.classList.remove('hidden');
+        } else {
+            // Défaite instantanée
+            erreurs = maxErreurs;
+            afficherPenduComplet();
+            messageDiv.textContent = `Dommage ! Le mot était : ${motActuel}`;
+            messageDiv.className = 'message lose';
+            desactiverClavier();
+            replayBtn.classList.remove('hidden');
+        }
+    }
+
+    const afficherPenduComplet = () => {
+        const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
+        parts.forEach(part => {
+            const element = document.getElementById(part);
+            if (element) {
+                element.classList.add('visible');
+            }
+        });
+    }
+
     // Désactiver le clavier
     const desactiverClavier = () => {
         const boutons = keyboardContainer.getElementsByClassName('letter-btn');
         for (let btn of boutons) {
             btn.disabled = true;
         }
+
+        trouverMotBtn.disabled = true;
     }
 
     // Événements
@@ -264,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
             demarrerJeu(categorie);
         });
     });
-
+    trouverMotBtn.addEventListener('click', proposerMotComplet);
     replayBtn.addEventListener('click', initJeu);
 
     // Initialiser le jeu au démarrage
