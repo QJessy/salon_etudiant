@@ -224,7 +224,7 @@ header h1 {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .letter-btn:hover:not(:disabled) {
@@ -321,6 +321,10 @@ footer p {
     width: 220px;
     margin: 1rem auto 0;
     box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.replay-btn:active {
+    animation: bounce 0.4s ease;
 }
 
 .trouver-mot-btn:hover:not(:disabled) {
