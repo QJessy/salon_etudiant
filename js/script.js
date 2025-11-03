@@ -53,6 +53,28 @@ document.addEventListener('DOMContentLoaded', () => {
             "MODERN FAMILY", "THE SIMPSONS", "SOUTH PARK", "FAMILY GUY", "RICK AND MORTY",
             "SHERLOCK", "SQUID GAME", "BLACK MIRROR", "THE MANDALORIAN", "DOCTOR WHO",
         ],
+        sports: [
+            "FOOTBALL", "BASKETBALL", "RUGBY", "HANDBALL", "VOLLEYBALL",
+            "HOCKEY", "BASEBALL", "WATER POLO", "CURLING",
+            "TENNIS", "BADMINTON", "TENNIS DE TABLE", "PADEL",
+            "ATHLETISME", "NATATION", "JUDO", "KARATE", "BOXE",
+            "ESCALADE", "GYMNASTIQUE", "HALTEROPHILIE", "EQUITATION", "GOLF",
+            "SKATEBOARD", "SURF", "SNOWBOARD", "SKI",
+            "PARKOUR", "ESCALADE", "PLONGEE", "PARACHUTISME",
+            "FORMULE UN", "MOTO GP"
+        ],
+        musique: [
+            "TAYLOR SWIFT", "BEYONCE", "ED SHEERAN", "ARIANA GRANDE",
+            "THE WEEKND", "ADELE", "BRUNO MARS", "LADY GAGA", "HARRY STYLES",
+            "BILLIE EILISH", "COLDPLAY", "IMAGINE DRAGONS", "DUA LIPA", "OLIVIA RODRIGO",
+            "EMINEM", "KENDRIK LAMAR", "NICKI MINAJ", "CARDI B", "TRAVIS SCOTT",
+            "NINHO", "TIAKOLA", "ORELSAN", "THEODORA", "DAFT PUNK",
+            "STROMAE", "ANGÈLE", "MIKA", "GAZO", "JULIEN DORE", "CLARA LUCIANI", "JOHNNY HALLYDAY",
+            "RIHANNA", "ALICIA KEYS", "SAM SMITH", "SABRINA CARPENTER",
+            "DAVID GUETTA", "CALVIN HARRIS", "MARTIN GARRIX", "AVICII",
+            "DADJU", "SELENA GOMEZ", "PHARRELLS WILLIAM", "GIMS",
+            "THE BEATLES", "QUEEN", "LED ZEPPELIN", "ACDC", "ROLLING STONES", "NIRVANA",            
+        ]
     };
 
     // Variables du jeu
