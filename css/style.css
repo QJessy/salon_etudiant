@@ -55,8 +55,9 @@ header h1 {
 }
 
 .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
@@ -75,6 +76,11 @@ header h1 {
     align-items: center;
     gap: 1rem;
     text-decoration: none;
+    flex: 0 1 calc(33.333% - 1.5rem);
+    min-width: 200px;
+    max-width: 250px;
+    min-height: 160px;
+    justify-content: center;
 }
 
 .category-btn:hover {
@@ -277,13 +283,14 @@ footer p {
     }
     
     .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     
     .category-btn {
+        flex: 0 1 calc(50% - 1rem);
+        min-width: 160px;
         padding: 1.5rem 0.5rem;
-        min-height: 120px;
+        min-height: 140px;
     }
     
     .category-btn .icon {
@@ -319,7 +326,6 @@ footer p {
         width: 25px;
     }
     
-    /* Clavier mobile optimisé */
     .keyboard-container {
         gap: 0.4rem;
         max-width: 100%;
@@ -332,15 +338,16 @@ footer p {
         border-radius: 6px;
     }
     
-    /* Agrandir légèrement les boutons pour le tactile */
     @media (max-width: 480px) {
         .letter-btn {
             width: 32px;
             height: 32px;
         }
         
-        .categories-grid {
-            grid-template-columns: 1fr;
+        .category-btn {
+            flex: 0 1 100%;
+            max-width: 280px;
+            min-height: 120px;
         }
         
         .word-display {
@@ -350,6 +357,10 @@ footer p {
         
         .letter {
             width: 18px;
+        }
+
+        .welcome-message h2 {
+            font-size: 1.5rem;
         }
     }
     
