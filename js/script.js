@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Base de données des mots pour chaque catégorie
     const motsParCategorie = {
-        youtube: [
-            "YOUTUBER", "ABONNES", "VLOG", "INFLUENCEUR",
-            "ALGORITHME", "MONETISATION", "CONTENU",
-            "REACTION", "TUTORIEL", "UNBOXING", "COMMUNAUTE",
-            "LIKE", "COMMENTAIRE", "PARTAGE", "ABONNEMENT",
-            "CHAINE", "VIDEO", "RECOMMANDATION", "TENDANCE",
-            "POPULAIRE", "GAMING", "REPLAY", "SHORTS",
+        youtubetwitch: [
+            "SQUEEZIE", "AMIXEM", "MCFLY ET CARLITO", "JOUEUR DU GRENIER", "LE RIRE JAUNE",
+            "MICHOU", "INOXTAG", "VALOUZZ", "PIDI", "LEBOUSEUH", "MASTU",
+            "BOB LENNON", "LENA SITUATIONS", "ENJOY PHEONIX", "NATOO", "SEB", "JOYCA",
+            "MISTER V", "SIPHANO", "WANKIL STUDIO", "DJILSI", "TIBO IN SHAPE", 
+            "ZERATOR", "MICHALOW", "GOTAGA", "MISTER MV", "BAGHERA", "MAGHLA", "ANTOINE DANIEL",
+            "FLAMBY", "DOMINGO", "ETOILES", "KAATSUP", "BYILHAN", "ANYME",
         ],
         sio: [
             "HTML", "CSS", "JAVASCRIPT", "PYTHON", "PHP", "SQL", "DART",
