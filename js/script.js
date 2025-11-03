@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "AVATAR", "TITANIC", "STAR WARS", "AVENGERS", "HARRY POTTER",
             "SEIGNEUR DES ANNEAUX", "PIRATES DES CARAIBES", "JURASSIC PARK", "INCEPTION",
             "FORREST GUMP", "BLACK PANTHER", "JOKER",
-            "INTOUCHABLE", "AstÃ©rix", "OSS 117", "LES VISITEURS",
+            "INTOUCHABLE", "ASTERIX", "OSS 117", "LES VISITEURS",
             "LE ROI LION", "TOY STORY", "LA REINE DES NEIGES", "SHREK",
             "NEMO", "LES INDESTRUCTIBLES", "RATATOUILLE"
         ],
@@ -39,12 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
             "BOEUF BOURGUIGNON", "COQ AU VIN", "RATATOUILLE", "QUICHE LORRAINE",
             "GRATIN DAUPHINOIS", "BOUILLABAISSE", "TARTE TATIN", "CHARCUTERIE",
             "PIZZA", "SPAGHETTI BOLOGNAISE", "SPAGHETTI CARBONARA", "LASAGNES", "TIRAMISU", "PANNA COTTA",
-            "SUSHI", "NOUILLES", "POULET CURRY",
-            "ROULEAUX DE PRINTEMPS", "RAMEN", "GYOZA",
-            "TACOS", "BURRITO", "PAELLA", "FAJITAS",
-            "FALAFEL", "KEBAB", "CHILI CON CARNE",
+            "SUSHI", "NOUILLES", "POULET CURRY", "ROULEAUX DE PRINTEMPS", "RAMEN", "GYOZA",
+            "TACOS", "BURRITO", "PAELLA", "FAJITAS", "FALAFEL", "KEBAB", "CHILI CON CARNE",
             "CREME BRULEE", "PROFITEROLES", "FONDANT AU CHOCOLAT", "ILE FLOTTANTE", "MILLE FEUILLE",
-            "MACARON", "ECLAIR", "PARIS BREST", "FRAISIER", "OPERA", "TROPEZIENNE", "CREPES", "GAUFRES", "PANCAKES"
+            "MACARON", "ECLAIR", "PARIS BREST", "FRAISIER", "OPERA", "TROPEZIENNE", "CREPES", "GAUFRES", "PANCAKES",
+            "FRITES", "FRICADELLE", "BURGER", "SANDWICH", "CROQUE MONSIEUR", "CROQUE MADAME"
         ]
     };
 
@@ -195,7 +194,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Vérifier si le jeu est terminé
     const verifierFinJeu = () => {
-        if (!lettresTrouvees.includes('_')) {
+        let motCompletTrouve = true;
+
+        for (let i = 0; i < motActuel.length; i++) {
+            // Si c'est une lettre (pas un espace) et qu'elle n'est pas trouvée
+            if (motActuel[i] !== ' ' && lettresTrouvees[i] === '_') {
+                motCompletTrouve = false;
+                break;
+            }
+        }
+
+        if (motCompletTrouve) {
             // Victoire
             messageDiv.textContent = 'Bravo ! Vous avez gagné !';
             messageDiv.className = 'message win';
