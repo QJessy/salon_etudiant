@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "FORREST GUMP", "BLACK PANTHER", "JOKER",
             "INTOUCHABLE", "ASTERIX", "OSS 117", "LES VISITEURS",
             "LE ROI LION", "TOY STORY", "LA REINE DES NEIGES", "SHREK",
-            "NEMO", "LES INDESTRUCTIBLES", "RATATOUILLE"
+            "NEMO", "LES INDESTRUCTIBLES", "RATATOUILLE",
+            "SCREAM", "ANABELLE", "CHUCKY", "SCARY MOVIE"
         ],
         plats: [
             "BOEUF BOURGUIGNON", "COQ AU VIN", "RATATOUILLE", "QUICHE LORRAINE",
@@ -44,7 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
             "CREME BRULEE", "PROFITEROLES", "FONDANT AU CHOCOLAT", "ILE FLOTTANTE", "MILLE FEUILLE",
             "MACARON", "ECLAIR", "PARIS BREST", "FRAISIER", "OPERA", "TROPEZIENNE", "CREPES", "GAUFRES", "PANCAKES",
             "FRITES", "FRICADELLE", "BURGER", "SANDWICH", "CROQUE MONSIEUR", "CROQUE MADAME"
-        ]
+        ],
+        series: [
+            "BREAKING BAD", "GAME OF THRONES", "STRANGER THINGS", "THE CROWN", "THE WALKING DEAD",
+            "LA CASA DE PAPEL", "PEAKY BLINDERS", "VIKINGS", "STAR TREK",
+            "FRIENDS", "THE OFFICE", "THE BIG BANG THEORY",
+            "MODERN FAMILY", "THE SIMPSONS", "SOUTH PARK", "FAMILY GUY", "RICK AND MORTY",
+            "SHERLOCK", "SQUID GAME", "BLACK MIRROR", "THE MANDALORIAN", "DOCTOR WHO",
+        ],
     };
 
     // Variables du jeu
