@@ -210,18 +210,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mettre à jour l'affichage
     const mettreAJourAffichage = () => {
-        // Afficher le mot avec gestion des espaces
-        let affichageMot = '';
-        for (let i = 0; i < motActuel.length; i++) {
-            if (motActuel[i] === ' ') {
-                affichageMot += '<span class="word-space"> </span>';
-            } else {
-                affichageMot += '<span class="letter">' + lettresTrouvees[i] + '</span>';
+        const wordDisplay = document.querySelector('.word-display');
+        
+        // Réinitialiser les styles
+        wordDisplay.className = 'word-display';
+        wordDisplay.innerHTML = '';
+    
+        // Séparer le mot actuel en mots individuels
+        const mots = motActuel.split(' ');
+        
+        // Vérifier si c'est un seul mot très long
+        const estUnSeulMot = mots.length === 1;
+        const motTresLong = estUnSeulMot && motActuel.length > 12;
+    
+        if (motTresLong) {
+            // Pour un seul mot très long : mode horizontal avec défilement
+            wordDisplay.classList.add('single-word');
+            
+            for (let i = 0; i < motActuel.length; i++) {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = lettresTrouvees[i];
+                wordDisplay.appendChild(span);
+            }
+        } else {
+            // Pour plusieurs mots : affichage avec retours à la ligne naturels
+            mots.forEach((mot, indexMot) => {
+                const motContainer = document.createElement('div');
+                motContainer.className = 'word-container';
+                
+                for (let i = 0; i < mot.length; i++) {
+                    const positionGlobale = getPositionGlobale(mots, indexMot, i);
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.textContent = lettresTrouvees[positionGlobale];
+                    motContainer.appendChild(span);
+                }
+                
+                wordDisplay.appendChild(motContainer);
+                
+                // Ajouter un espace invisible entre les mots (sauf après le dernier)
+                if (indexMot < mots.length - 1) {
+                    const espace = document.createElement('div');
+                    espace.className = 'word-space';
+                    wordDisplay.appendChild(espace);
+                }
+            });
+    
+            // Adaptation pour mobile : réduire si nécessaire
+            if (window.innerWidth <= 768) {
+                adapterAffichageMobile(wordDisplay, mots);
             }
         }
-
-        wordPlaceholder.innerHTML = affichageMot;
+    
         usedLetters.textContent = lettresUtilisees.join(', ');
+    }
+    
+    // Helper function pour trouver la position globale dans le mot complet
+    const getPositionGlobale = (mots, indexMot, indexLettre) => {
+        let position = 0;
+        for (let i = 0; i < indexMot; i++) {
+            position += mots[i].length + 1; // +1 pour l'espace
+        }
+        return position + indexLettre;
+    }
+    
+    // Adapter l'affichage pour mobile
+    const adapterAffichageMobile = (wordDisplay, mots) => {
+        const containerWidth = wordDisplay.offsetWidth;
+        const lettres = wordDisplay.querySelectorAll('.letter');
+        
+        if (lettres.length > 0) {
+            const letterWidth = lettres[0].offsetWidth || 20;
+            const maxLettresParLigne = Math.floor(containerWidth / (letterWidth + 4));
+            
+            // Réduire la taille si le mot le plus long dépasse la largeur
+            const longueurMotLePlusLong = Math.max(...mots.map(mot => mot.length));
+            
+            if (longueurMotLePlusLong > maxLettresParLigne) {
+                wordDisplay.style.fontSize = 'clamp(1.1rem, 3vw, 1.5rem)';
+                wordDisplay.style.letterSpacing = '0.1rem';
+            }
+        }
     }
 
     // Vérifier si le jeu est terminé
