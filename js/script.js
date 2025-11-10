@@ -403,13 +403,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const proposerMotComplet = () => {
-        const motPropose = prompt("💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici : \n\nAttention : Une erreur est le jeu se termine !");
+        const motPropose = prompt("💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici : \n\nAttention : Une erreur et le jeu se termine !");
     
         if (motPropose === null) {
             return;
         }
     
-        if (motPropose && motPropose.toUpperCase().replace(/\s+/g, ' ') === motActuel) {
+        // Normaliser la proposition : majuscules et gestion des espaces
+        const propositionNormalisee = motPropose.toUpperCase().trim();
+        
+        // Normaliser le mot actuel pour la comparaison
+        const motActuelNormalise = motActuel;
+        
+        // Comparaison en tenant compte des espaces
+        if (propositionNormalisee === motActuelNormalise) {
             // Victoire instantanée
             lettresTrouvees = motActuel.split('');
             mettreAJourAffichage();
@@ -430,6 +437,11 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.className = 'message lose';
             desactiverClavier();
             replayBtn.classList.remove('hidden');
+            
+            // Animations de défaite
+            setTimeout(() => {
+                lancerAnimationsDefaite();
+            }, 500);
         }
     };
 
