@@ -664,6 +664,81 @@ button, .letter-btn, .category-btn {
     touch-action: manipulation;
 }
 
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: var(--success-color);
+    opacity: 0;
+    pointer-events: none;
+    animation: confetti 3s ease-out forwards;
+}
+
+.confetti:nth-child(2n) {
+    background: var(--accent-color);
+}
+
+.confetti:nth-child(3n) {
+    background: #ffd700; /* Or */
+}
+
+.confetti:nth-child(4n) {
+    background: #ff6b6b; /* Rouge */
+}
+
+.confetti:nth-child(5n) {
+    background: #4ecdc4; /* Turquoise */
+}
+
+/* Formes de confetti */
+.confetti:nth-child(6n) {
+    border-radius: 50%; /* Rond */
+}
+
+.confetti:nth-child(7n) {
+    width: 8px;
+    height: 16px; /* Rectangle */
+}
+
+.confetti:nth-child(8n) {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Triangle */
+}
+
+/* Animation du confetti améliorée */
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Effet de particules supplémentaires */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    animation: float 2s ease-out forwards;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {

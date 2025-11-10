@@ -105,6 +105,139 @@ document.addEventListener('DOMContentLoaded', () => {
         creerPenduSVG();
     }
 
+    // Fonction pour créer l'explosion de confetti
+    const creerConfetti = () => {
+        const confettiCount = 150; // Nombre de confettis
+        const colors = [
+            '#10b981', '#6366f1', '#f59e0b', '#ef4444', '#8b5cf6',
+            '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#14b8a6'
+        ];
+
+        const container = document.body;
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            // Position aléatoire en haut de l'écran
+            const startX = Math.random() * window.innerWidth;
+            const startY = -20;
+
+            // Couleur aléatoire
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            // Taille aléatoire
+            const size = Math.random() * 10 + 8;
+
+            // Animation delay aléatoire
+            const delay = Math.random() * 2;
+
+            // Durée d'animation aléatoire
+            const duration = Math.random() * 2 + 2;
+
+            // Appliquer les styles
+            confetti.style.cssText = `
+            left: ${startX}px;
+            top: ${startY}px;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${color};
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+            position: fixed;
+            z-index: 1000;
+            pointer-events: none;
+        `;
+
+            // Formes aléatoires
+            const shapeType = Math.floor(Math.random() * 4);
+            switch (shapeType) {
+                case 0:
+                    confetti.style.borderRadius = '50%'; // Cercle
+                    break;
+                case 1:
+                    confetti.style.width = `${size * 0.6}px`; // Rectangle
+                    confetti.style.height = `${size * 1.4}px`;
+                    break;
+                case 2:
+                    confetti.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; // Triangle
+                    break;
+                case 3:
+                    confetti.style.transform = 'rotate(45deg)'; // Carré
+                    break;
+            }
+
+            container.appendChild(confetti);
+
+            // Supprimer l'élément après l'animation
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.parentNode.removeChild(confetti);
+                }
+            }, (duration + delay) * 1000);
+        }
+
+        // Ajouter des particules supplémentaires
+        creerParticulesSupplementaires();
+    };
+
+    // Fonction pour créer des particules supplémentaires (effet bonus)
+    const creerParticulesSupplementaires = () => {
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight / 2;
+
+            const size = Math.random() * 6 + 4;
+            const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 100 + 50;
+
+            particle.style.cssText = `
+            left: ${startX}px;
+            top: ${startY}px;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${color};
+            border-radius: 50%;
+            position: fixed;
+            z-index: 1000;
+            pointer-events: none;
+        `;
+
+            document.body.appendChild(particle);
+
+            // Animation personnalisée pour les particules
+            const endX = startX + Math.cos(angle) * distance;
+            const endY = startY + Math.sin(angle) * distance;
+
+            particle.animate([
+                {
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 1000 + Math.random() * 1000,
+                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+            });
+
+            // Supprimer après l'animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 2000);
+        }
+    };
+
     // Créer le SVG (image du bonhomme) du pendu
     const creerPenduSVG = () => {
         penduArt.innerHTML = `
@@ -212,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mettreAJourAffichage = () => {
         let html = '';
         let currentWord = '';
-        
+
         for (let i = 0; i < motActuel.length; i++) {
             if (motActuel[i] === ' ') {
                 // Quand on rencontre un espace, on wrap le mot précédent
@@ -226,12 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentWord += `<span class="letter">${lettresTrouvees[i]}</span>`;
             }
         }
-        
+
         // Ne pas oublier le dernier mot
         if (currentWord) {
             html += `<div class="word-container">${currentWord}</div>`;
         }
-    
+
         wordPlaceholder.innerHTML = html;
         usedLetters.textContent = lettresUtilisees.join(', ');
     };
@@ -239,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Vérifier si le jeu est terminé
     const verifierFinJeu = () => {
         let motCompletTrouve = true;
-
+    
         for (let i = 0; i < motActuel.length; i++) {
             // Si c'est une lettre (pas un espace) et qu'elle n'est pas trouvée
             if (motActuel[i] !== ' ' && lettresTrouvees[i] === '_') {
@@ -247,13 +380,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             }
         }
-
+    
         if (motCompletTrouve) {
-            // Victoire
+            // Victoire - déclencher le confetti !
             messageDiv.textContent = 'Bravo ! Vous avez gagné !';
             messageDiv.className = 'message win';
             desactiverClavier();
             replayBtn.classList.remove('hidden');
+            
+            // Lancer le confetti après un petit délai pour l'effet dramatique
+            setTimeout(() => {
+                creerConfetti();
+            }, 300);
+            
         } else if (erreurs >= maxErreurs) {
             // Défaite
             messageDiv.textContent = `Dommage ! Le mot était : ${motActuel}`;
@@ -261,15 +400,15 @@ document.addEventListener('DOMContentLoaded', () => {
             desactiverClavier();
             replayBtn.classList.remove('hidden');
         }
-    }
+    };
 
     const proposerMotComplet = () => {
         const motPropose = prompt("💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici : \n\nAttention : Une erreur est le jeu se termine !");
-
+    
         if (motPropose === null) {
             return;
         }
-
+    
         if (motPropose && motPropose.toUpperCase().replace(/\s+/g, ' ') === motActuel) {
             // Victoire instantanée
             lettresTrouvees = motActuel.split('');
@@ -278,6 +417,11 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.className = 'message win';
             desactiverClavier();
             replayBtn.classList.remove('hidden');
+            
+            // Confetti pour la victoire par mot complet
+            setTimeout(() => {
+                creerConfetti();
+            }, 300);
         } else {
             // Défaite instantanée
             erreurs = maxErreurs;
@@ -287,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             desactiverClavier();
             replayBtn.classList.remove('hidden');
         }
-    }
+    };
 
     const afficherPenduComplet = () => {
         const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
