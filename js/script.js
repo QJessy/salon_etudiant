@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fonction pour créer l'explosion de confetti
     const creerConfetti = () => {
-        const confettiCount = 150; // Nombre de confettis
+        const confettiCount = 200; // Nombre de confettis
         const colors = [
             '#10b981', '#6366f1', '#f59e0b', '#ef4444', '#8b5cf6',
             '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#14b8a6'
