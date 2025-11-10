@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Base de données des mots pour chaque catégorie
+    // ===== CONFIGURATION ET DONNÉES =====
+    
+    /**
+     * Base de données des mots par catégorie
+     * Format : { [catégorie]: [mots en MAJUSCULES] }
+     */
     const motsParCategorie = {
         youtubetwitch: [
             "SQUEEZIE", "AMIXEM", "MCFLY ET CARLITO", "JOUEUR DU GRENIER", "LE RIRE JAUNE",
@@ -77,13 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // Variables du jeu
-    let motActuel = "";
-    let lettresTrouvees = [];
-    let lettresUtilisees = [];
-    let erreurs = 0;
-    const maxErreurs = 6;
+    // ===== VARIABLES DU JEU =====
+    
+    let motActuel = "";           // Mot à deviner
+    let lettresTrouvees = [];     // Tableau des lettres trouvées (_ pour non trouvées)
+    let lettresUtilisees = [];    // Lettres déjà proposées
+    let erreurs = 0;              // Nombre d'erreurs actuelles
+    const maxErreurs = 6;         // Nombre maximum d'erreurs autorisées
 
+    // ===== RÉFÉRENCES DOM =====
+    
     const homeScreen = document.getElementById('home-screen');
     const gameArea = document.getElementById('game-area');
     const penduArt = document.getElementById('pendu-art');
@@ -94,7 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const replayBtn = document.getElementById('replay-btn');
     const trouverMotBtn = document.getElementById('trouver-mot-btn');
 
-    // Initialisation du jeu
+    // ===== FONCTIONS D'INITIALISATION =====
+
+    /**
+     * Initialise le jeu et affiche l'écran d'accueil
+     */
     const initJeu = () => {
         homeScreen.classList.remove('hidden');
         gameArea.classList.add('hidden');
@@ -103,181 +115,34 @@ document.addEventListener('DOMContentLoaded', () => {
         replayBtn.classList.add('hidden');
 
         creerPenduSVG();
-    }
-
-    // Fonction pour créer l'explosion de confetti
-    const creerConfetti = () => {
-        const confettiCount = 200; // Nombre de confettis
-        const colors = [
-            '#10b981', '#6366f1', '#f59e0b', '#ef4444', '#8b5cf6',
-            '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#14b8a6'
-        ];
-
-        const container = document.body;
-
-        for (let i = 0; i < confettiCount; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-
-            // Position aléatoire en haut de l'écran
-            const startX = Math.random() * window.innerWidth;
-            const startY = -20;
-
-            // Couleur aléatoire
-            const color = colors[Math.floor(Math.random() * colors.length)];
-
-            // Taille aléatoire
-            const size = Math.random() * 10 + 8;
-
-            // Animation delay aléatoire
-            const delay = Math.random() * 2;
-
-            // Durée d'animation aléatoire
-            const duration = Math.random() * 2 + 2;
-
-            // Appliquer les styles
-            confetti.style.cssText = `
-            left: ${startX}px;
-            top: ${startY}px;
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            animation-delay: ${delay}s;
-            animation-duration: ${duration}s;
-            position: fixed;
-            z-index: 1000;
-            pointer-events: none;
-        `;
-
-            // Formes aléatoires
-            const shapeType = Math.floor(Math.random() * 4);
-            switch (shapeType) {
-                case 0:
-                    confetti.style.borderRadius = '50%'; // Cercle
-                    break;
-                case 1:
-                    confetti.style.width = `${size * 0.6}px`; // Rectangle
-                    confetti.style.height = `${size * 1.4}px`;
-                    break;
-                case 2:
-                    confetti.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; // Triangle
-                    break;
-                case 3:
-                    confetti.style.transform = 'rotate(45deg)'; // Carré
-                    break;
-            }
-
-            container.appendChild(confetti);
-
-            // Supprimer l'élément après l'animation
-            setTimeout(() => {
-                if (confetti.parentNode) {
-                    confetti.parentNode.removeChild(confetti);
-                }
-            }, (duration + delay) * 1000);
-        }
-
-        // Ajouter des particules supplémentaires
-        creerParticulesSupplementaires();
     };
 
-    // Fonction pour créer des particules supplémentaires (effet bonus)
-    const creerParticulesSupplementaires = () => {
-        const particleCount = 50;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-
-            const startX = window.innerWidth / 2;
-            const startY = window.innerHeight / 2;
-
-            const size = Math.random() * 6 + 4;
-            const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 100 + 50;
-
-            particle.style.cssText = `
-            left: ${startX}px;
-            top: ${startY}px;
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            border-radius: 50%;
-            position: fixed;
-            z-index: 1000;
-            pointer-events: none;
-        `;
-
-            document.body.appendChild(particle);
-
-            // Animation personnalisée pour les particules
-            const endX = startX + Math.cos(angle) * distance;
-            const endY = startY + Math.sin(angle) * distance;
-
-            particle.animate([
-                {
-                    transform: 'translate(0, 0) scale(1)',
-                    opacity: 1
-                },
-                {
-                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`,
-                    opacity: 0
-                }
-            ], {
-                duration: 1000 + Math.random() * 1000,
-                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
-            });
-
-            // Supprimer après l'animation
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, 2000);
-        }
-    };
-
-    // Créer le SVG (image du bonhomme) du pendu
+    /**
+     * Crée le SVG du pendu avec toutes ses parties
+     */
     const creerPenduSVG = () => {
         penduArt.innerHTML = `
-        <svg class="pendu-svg" viewBox="0 0 200 180">
-            <!-- Structure du pendu -->
-            <line class="pendu-line" x1="20" y1="170" x2="100" y2="170"/>
-            <line class="pendu-line" x1="40" y1="170" x2="40" y2="20"/>
-            <line class="pendu-line" x1="40" y1="20" x2="100" y2="20"/>
-            <line class="pendu-line" x1="100" y1="20" x2="100" y2="40"/>
-            
-            <!-- Parties du bonhomme -->
-            <circle class="pendu-part" id="head" cx="100" cy="55" r="15" fill="none"/>
-            <line class="pendu-part" id="body" x1="100" y1="70" x2="100" y2="110"/>
-            <line class="pendu-part" id="left-arm" x1="100" y1="80" x2="80" y2="95"/>
-            <line class="pendu-part" id="right-arm" x1="100" y1="80" x2="120" y2="95"/>
-            <line class="pendu-part" id="left-leg" x1="100" y1="110" x2="85" y2="140"/>
-            <line class="pendu-part" id="right-leg" x1="100" y1="110" x2="115" y2="140"/>
-        </svg>
-    `;
-    }
+            <svg class="pendu-svg" viewBox="0 0 200 180">
+                <!-- Structure du pendu -->
+                <line class="pendu-line" x1="20" y1="170" x2="100" y2="170"/>
+                <line class="pendu-line" x1="40" y1="170" x2="40" y2="20"/>
+                <line class="pendu-line" x1="40" y1="20" x2="100" y2="20"/>
+                <line class="pendu-line" x1="100" y1="20" x2="100" y2="40"/>
+                
+                <!-- Parties du bonhomme (initialement invisibles) -->
+                <circle class="pendu-part" id="head" cx="100" cy="55" r="15" fill="none"/>
+                <line class="pendu-part" id="body" x1="100" y1="70" x2="100" y2="110"/>
+                <line class="pendu-part" id="left-arm" x1="100" y1="80" x2="80" y2="95"/>
+                <line class="pendu-part" id="right-arm" x1="100" y1="80" x2="120" y2="95"/>
+                <line class="pendu-part" id="left-leg" x1="100" y1="110" x2="85" y2="140"/>
+                <line class="pendu-part" id="right-leg" x1="100" y1="110" x2="115" y2="140"/>
+            </svg>
+        `;
+    };
 
-    // Démarrer le jeu avec la catégorie séléctionné
-    const demarrerJeu = (categorie) => {
-        homeScreen.classList.add('hidden');
-        gameArea.classList.remove('hidden');
-        trouverMotBtn.disabled = false;
-
-        const mots = motsParCategorie[categorie];
-        motActuel = mots[Math.floor(Math.random() * mots.length)];
-
-        lettresTrouvees = Array(motActuel.length).fill('_');
-        lettresUtilisees = [];
-        erreurs = 0;
-
-        mettreAJourAffichage();
-        creerClavier();
-        reinitialiserPendu();
-    }
-
-    // Réinitialiser le pendu
+    /**
+     * Réinitialise le dessin du pendu (cache toutes les parties)
+     */
     const reinitialiserPendu = () => {
         const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
         parts.forEach(part => {
@@ -286,9 +151,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.classList.remove('visible');
             }
         });
-    }
+    };
 
-    // Créer le clavier virtuel (Pavé avec toutes les lettres de l'alphabet)
+    // ===== FONCTIONS DE JEU PRINCIPALES =====
+
+    /**
+     * Démarre une nouvelle partie avec la catégorie sélectionnée
+     * @param {string} categorie - La catégorie de mots à utiliser
+     */
+    const demarrerJeu = (categorie) => {
+        homeScreen.classList.add('hidden');
+        gameArea.classList.remove('hidden');
+        trouverMotBtn.disabled = false;
+
+        // Sélection aléatoire d'un mot dans la catégorie
+        const mots = motsParCategorie[categorie];
+        motActuel = mots[Math.floor(Math.random() * mots.length)];
+
+        // Initialisation des variables de jeu
+        lettresTrouvees = Array(motActuel.length).fill('_');
+        lettresUtilisees = [];
+        erreurs = 0;
+
+        mettreAJourAffichage();
+        creerClavier();
+        reinitialiserPendu();
+    };
+
+    /**
+     * Crée le clavier virtuel avec toutes les lettres de l'alphabet
+     */
     const creerClavier = () => {
         keyboardContainer.innerHTML = '';
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -300,12 +192,16 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => proposerLettre(lettre));
             keyboardContainer.appendChild(btn);
         }
-    }
+    };
 
-    // Proposer une lettre
+    /**
+     * Gère la proposition d'une lettre par le joueur
+     * @param {string} lettre - La lettre proposée
+     */
     const proposerLettre = (lettre) => {
         if (lettresUtilisees.includes(lettre)) return;
 
+        // Marquer la lettre comme utilisée
         lettresUtilisees.push(lettre);
         const btn = [...keyboardContainer.children].find(b => b.textContent === lettre);
         btn.disabled = true;
@@ -313,6 +209,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (motActuel.includes(lettre)) {
             // Lettre correcte
             btn.classList.add('correct');
+            
+            // Révéler la lettre dans toutes ses positions
             for (let i = 0; i < motActuel.length; i++) {
                 if (motActuel[i] === lettre) {
                     lettresTrouvees[i] = lettre;
@@ -327,21 +225,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mettreAJourAffichage();
         verifierFinJeu();
-    }
+    };
 
-    // Mettre à jour le dessin du pendu
-    const mettreAJourPendu = () => {
-        const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
-        if (erreurs > 0 && erreurs <= parts.length) {
-            const partToShow = parts[erreurs - 1];
-            const element = document.getElementById(partToShow);
-            if (element) {
-                element.classList.add('visible');
-            }
+    /**
+     * Gère la proposition du mot complet par le joueur
+     */
+    const proposerMotComplet = () => {
+        const motPropose = prompt(
+            "💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici :\n\n" +
+            "Attention : Une erreur et le jeu se termine !"
+        );
+
+        if (motPropose === null) return; // L'utilisateur a annulé
+
+        // Normalisation de la proposition
+        const propositionNormalisee = motPropose.toUpperCase().trim();
+        
+        if (propositionNormalisee === motActuel) {
+            // Victoire instantanée
+            lettresTrouvees = motActuel.split('');
+            mettreAJourAffichage();
+            messageDiv.textContent = '🎉 Bravo ! Victoire par intuition ! 🎉';
+            messageDiv.className = 'message win';
+            desactiverClavier();
+            replayBtn.classList.remove('hidden');
+            
+            setTimeout(() => {
+                creerConfetti();
+            }, 300);
+        } else {
+            // Défaite instantanée
+            erreurs = maxErreurs;
+            afficherPenduComplet();
+            messageDiv.textContent = `❌ Dommage ! Le mot était : ${motActuel}`;
+            messageDiv.className = 'message lose';
+            desactiverClavier();
+            replayBtn.classList.remove('hidden');
+            
+            setTimeout(() => {
+                lancerAnimationsDefaite();
+            }, 500);
         }
-    }
+    };
 
-    // Mettre à jour l'affichage
+    // ===== FONCTIONS D'AFFICHAGE ET MISE À JOUR =====
+
+    /**
+     * Met à jour l'affichage du mot avec gestion intelligente des espaces
+     */
     const mettreAJourAffichage = () => {
         let html = '';
         let currentWord = '';
@@ -369,10 +300,41 @@ document.addEventListener('DOMContentLoaded', () => {
         usedLetters.textContent = lettresUtilisees.join(', ');
     };
 
-    // Vérifier si le jeu est terminé
+    /**
+     * Met à jour le dessin du pendu en fonction du nombre d'erreurs
+     */
+    const mettreAJourPendu = () => {
+        const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
+        if (erreurs > 0 && erreurs <= parts.length) {
+            const partToShow = parts[erreurs - 1];
+            const element = document.getElementById(partToShow);
+            if (element) {
+                element.classList.add('visible');
+            }
+        }
+    };
+
+    /**
+     * Affiche toutes les parties du pendu (défaite)
+     */
+    const afficherPenduComplet = () => {
+        const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
+        parts.forEach(part => {
+            const element = document.getElementById(part);
+            if (element) {
+                element.classList.add('visible');
+            }
+        });
+    };
+
+    // ===== FONCTIONS DE GESTION DE FIN DE JEU =====
+
+    /**
+     * Vérifie si la partie est terminée (victoire ou défaite)
+     */
     const verifierFinJeu = () => {
         let motCompletTrouve = true;
-    
+
         for (let i = 0; i < motActuel.length; i++) {
             // Si c'est une lettre (pas un espace) et qu'elle n'est pas trouvée
             if (motActuel[i] !== ' ' && lettresTrouvees[i] === '_') {
@@ -380,15 +342,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             }
         }
-    
+
         if (motCompletTrouve) {
-            // Victoire - déclencher le confetti !
+            // Victoire
             messageDiv.textContent = 'Bravo ! Vous avez gagné !';
             messageDiv.className = 'message win';
             desactiverClavier();
             replayBtn.classList.remove('hidden');
             
-            // Lancer le confetti après un petit délai pour l'effet dramatique
             setTimeout(() => {
                 creerConfetti();
             }, 300);
@@ -399,82 +360,161 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.className = 'message lose';
             desactiverClavier();
             replayBtn.classList.remove('hidden');
-        }
-    };
-
-    const proposerMotComplet = () => {
-        const motPropose = prompt("💡 Vous pensez avoir trouvé le mot ? Écrivez-le ici : \n\nAttention : Une erreur et le jeu se termine !");
-    
-        if (motPropose === null) {
-            return;
-        }
-    
-        // Normaliser la proposition : majuscules et gestion des espaces
-        const propositionNormalisee = motPropose.toUpperCase().trim();
-        
-        // Normaliser le mot actuel pour la comparaison
-        const motActuelNormalise = motActuel;
-        
-        // Comparaison en tenant compte des espaces
-        if (propositionNormalisee === motActuelNormalise) {
-            // Victoire instantanée
-            lettresTrouvees = motActuel.split('');
-            mettreAJourAffichage();
-            messageDiv.textContent = 'Bravo ! Vous avez gagné !';
-            messageDiv.className = 'message win';
-            desactiverClavier();
-            replayBtn.classList.remove('hidden');
             
-            // Confetti pour la victoire par mot complet
-            setTimeout(() => {
-                creerConfetti();
-            }, 300);
-        } else {
-            // Défaite instantanée
-            erreurs = maxErreurs;
-            afficherPenduComplet();
-            messageDiv.textContent = `Dommage ! Le mot était : ${motActuel}`;
-            messageDiv.className = 'message lose';
-            desactiverClavier();
-            replayBtn.classList.remove('hidden');
-            
-            // Animations de défaite
             setTimeout(() => {
                 lancerAnimationsDefaite();
             }, 500);
         }
     };
 
-    const afficherPenduComplet = () => {
-        const parts = ['head', 'body', 'left-arm', 'right-arm', 'left-leg', 'right-leg'];
-        parts.forEach(part => {
-            const element = document.getElementById(part);
-            if (element) {
-                element.classList.add('visible');
-            }
-        });
-    }
-
-    // Désactiver le clavier
+    /**
+     * Désactive le clavier et le bouton "Trouver le mot"
+     */
     const desactiverClavier = () => {
         const boutons = keyboardContainer.getElementsByClassName('letter-btn');
         for (let btn of boutons) {
             btn.disabled = true;
         }
-
         trouverMotBtn.disabled = true;
-    }
+    };
 
-    // Événements
+    // ===== FONCTIONS D'ANIMATIONS ET EFFETS VISUELS =====
+
+    /**
+     * Crée une explosion de confetti pour la victoire
+     */
+    const creerConfetti = () => {
+        const confettiCount = 200;
+        const colors = [
+            '#10b981', '#6366f1', '#f59e0b', '#ef4444', '#8b5cf6',
+            '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#14b8a6'
+        ];
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = -20;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 10 + 8;
+            const delay = Math.random() * 2;
+            const duration = Math.random() * 2 + 2;
+
+            confetti.style.cssText = `
+                left: ${startX}px;
+                top: ${startY}px;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+                position: fixed;
+                z-index: 1000;
+                pointer-events: none;
+            `;
+
+            // Formes aléatoires
+            const shapeType = Math.floor(Math.random() * 4);
+            switch (shapeType) {
+                case 0: confetti.style.borderRadius = '50%'; break;
+                case 1: 
+                    confetti.style.width = `${size * 0.6}px`;
+                    confetti.style.height = `${size * 1.4}px`;
+                    break;
+                case 2: confetti.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; break;
+                case 3: confetti.style.transform = 'rotate(45deg)'; break;
+            }
+
+            document.body.appendChild(confetti);
+
+            // Nettoyage automatique après l'animation
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.parentNode.removeChild(confetti);
+                }
+            }, (duration + delay) * 1000);
+        }
+
+        creerParticulesSupplementaires();
+    };
+
+    /**
+     * Crée des particules supplémentaires pour l'effet de victoire
+     */
+    const creerParticulesSupplementaires = () => {
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight / 2;
+            const size = Math.random() * 6 + 4;
+            const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 100 + 50;
+
+            particle.style.cssText = `
+                left: ${startX}px;
+                top: ${startY}px;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                border-radius: 50%;
+                position: fixed;
+                z-index: 1000;
+                pointer-events: none;
+            `;
+
+            document.body.appendChild(particle);
+
+            // Animation personnalisée
+            const endX = startX + Math.cos(angle) * distance;
+            const endY = startY + Math.sin(angle) * distance;
+
+            particle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                { transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 1000 + Math.random() * 1000,
+                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+            });
+
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 2000);
+        }
+    };
+
+    /**
+     * Lance les animations de défaite
+     */
+    const lancerAnimationsDefaite = () => {
+        // À implémenter avec les animations de défaite
+        console.log('Animations de défaite déclenchées');
+    };
+
+    // ===== GESTIONNAIRES D'ÉVÉNEMENTS =====
+
+    // Événement pour les boutons de catégorie
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const categorie = e.target.closest('.category-btn').dataset.category;
             demarrerJeu(categorie);
         });
     });
+
+    // Événement pour le bouton "Trouver le mot"
     trouverMotBtn.addEventListener('click', proposerMotComplet);
+
+    // Événement pour le bouton "Rejouer"
     replayBtn.addEventListener('click', initJeu);
 
-    // Initialiser le jeu au démarrage
+    // ===== INITIALISATION AU CHARGEMENT =====
+    
     initJeu();
 });
